@@ -1,4 +1,4 @@
-package com.kashapovrush.cofeeshopstest.presentation.signUpScreen
+package com.kashapovrush.cofeeshopstest.presentation.signInScreen
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -61,12 +61,6 @@ fun SignInScreen() {
                     visualTransformation = PasswordVisualTransformation(),
                     type = KeyboardType.Password
                 )
-                TextFieldWithTitle(
-                    title = "Повторите пароль",
-                    hint = "********",
-                    visualTransformation = PasswordVisualTransformation(),
-                    type = KeyboardType.Password
-                )
 
                 Box(
                     modifier = Modifier.padding(
@@ -83,7 +77,7 @@ fun SignInScreen() {
                             .wrapContentHeight(),
                     ) {
                         Text(
-                            text = stringResource(R.string.registration),
+                            text = stringResource(R.string.sign_in),
                             fontSize = 18.sp,
                             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
                         )
@@ -103,7 +97,7 @@ fun SignInScreen() {
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
-                            text = stringResource(R.string.registration),
+                            text = stringResource(R.string.sign_in),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             color = MaterialTheme.colorScheme.onBackground,
