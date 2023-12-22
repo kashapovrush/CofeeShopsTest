@@ -2,4 +2,6 @@
     <string name="app_name">Cofee Shops Test</string>
     <string name="registration">Регистрация</string>
     <string name="sign_in">Вход</string>
+    <string name="near_cofee_shops">Ближайшие кофейни</string>
+    <string name="menu_coffee">Меню</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +27,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -94,13 +96,14 @@ fun SignUpScreen() {
         },
         topBar = {
             Card(
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 1.dp
-                ),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
+                colors = CardDefaults.cardColors(
+                    disabledContainerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = MaterialTheme.colorScheme.surface),
+                shape = RoundedCornerShape(0.dp),
             )
             {
                 CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(MaterialTheme.colorScheme.surface),
                     title = {
                         Text(
                             text = stringResource(R.string.registration),
@@ -111,6 +114,7 @@ fun SignUpScreen() {
                             fontSize = 24.sp
                         )
                     },
+                    modifier = Modifier.clip(RoundedCornerShape(0.dp))
                 )
             }
 
@@ -165,10 +169,4 @@ private fun TextFieldWithTitle(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun Preview() {
-    SignUpScreen()
 }
