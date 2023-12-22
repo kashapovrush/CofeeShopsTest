@@ -21,7 +21,6 @@ class MainActivity : ComponentActivity() {
 
 
                 MapKitFactory.getInstance().onStart()
-                MapView.
             }
         }
     }
