@@ -1,4 +1,4 @@
-package com.kashapovrush.cofeeshopstest.presentation
+package com.kashapovrush.cofeeshopstest.presentation.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

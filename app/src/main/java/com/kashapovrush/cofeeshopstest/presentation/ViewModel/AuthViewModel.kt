@@ -7,11 +7,9 @@ import com.kashapovrush.cofeeshopstest.data.model.Token
 import com.kashapovrush.cofeeshopstest.data.model.User
 import com.kashapovrush.cofeeshopstest.domain.LoginUserUseCase
 import com.kashapovrush.cofeeshopstest.domain.RegisterUserUseCase
-import com.kashapovrush.cofeeshopstest.presentation.signInScreen.AuthState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
@@ -19,13 +17,39 @@ class AuthViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase
 ): ViewModel() {
 
-    fun loginUser(user: User) = loginUserUseCase(user)
-//        .filter { it.token.isNotEmpty() }
-        .map { it.token }
+    private val _loginState = MutableLiveData<String>()
+    val loginState: LiveData<String> = _loginState
+
+    private val _registerState = MutableLiveData<String>()
+    val registerState: LiveData<String> = _registerState
+
+    fun loginUser(user: User)  {
+        return loginUserUseCase(user).enqueue( object : Callback<Token> {
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                _loginState.value = response.body()?.token
+            }
+
+            override fun onFailure(call: Call<Token>, t: Throwable) {
+                _loginState.value = null
+            }
+
+        })
+    }
 
 
+    fun registerUser(user: User) {
+        return registerUserUseCase(user).enqueue(object : Callback<Token> {
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                _registerState.value = response.body()?.token
+            }
 
-    fun registerUser(user: User) = registerUserUseCase(user)
+            override fun onFailure(call: Call<Token>, t: Throwable) {
+                _registerState.value = null
+            }
+
+        })
+    }
+
 
 
 

@@ -10,7 +10,7 @@ import retrofit2.Response
 
 interface AuthRepository {
 
-    fun loginUser(user: User): Flow<Token>
+    fun loginUser(user: User): Call<Token>
 
     fun registerUser(user: User): Call<Token>
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class LoginUserUseCase @Inject constructor(private val repository: AuthRepository) {
 
-    operator fun invoke(user: User): Flow<Token> {
+    operator fun invoke(user: User): Call<Token> {
        return repository.loginUser(user)
     }
 }

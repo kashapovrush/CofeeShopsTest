@@ -34,15 +34,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.cofeeshopstest.R
+import com.kashapovrush.cofeeshopstest.data.model.User
+import com.kashapovrush.cofeeshopstest.presentation.ViewModel.AuthViewModel
+import com.kashapovrush.cofeeshopstest.presentation.ViewModel.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    viewModelFactory: ViewModelFactory,
+    user: User,
+    context: LifecycleOwner
+) {
 
+    val viewModel: AuthViewModel = viewModel(factory = viewModelFactory)
+    viewModel.registerState.observe(context) {
+
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         content = {
@@ -79,7 +91,9 @@ fun SignUpScreen() {
                     )
                 ) {
                     Button(
-                        onClick = { },
+                        onClick = {
+                            viewModel.registerUser(user)
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight(),
@@ -98,7 +112,8 @@ fun SignUpScreen() {
             Card(
                 colors = CardDefaults.cardColors(
                     disabledContainerColor = MaterialTheme.colorScheme.surface,
-                    containerColor = MaterialTheme.colorScheme.surface),
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
                 shape = RoundedCornerShape(0.dp),
             )
             {
