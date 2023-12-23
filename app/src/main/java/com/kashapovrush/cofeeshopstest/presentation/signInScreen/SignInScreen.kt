@@ -1,5 +1,6 @@
 package com.kashapovrush.cofeeshopstest.presentation.signInScreen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +24,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -40,84 +43,105 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.cofeeshopstest.R
+import com.kashapovrush.cofeeshopstest.data.model.User
+import com.kashapovrush.cofeeshopstest.presentation.ViewModel.AuthViewModel
+import com.kashapovrush.cofeeshopstest.presentation.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    viewModelFactory: ViewModelFactory,
+    user: User,
+    onClickListener: () -> Unit
+) {
+//
+//    val viewModel: AuthViewModel = viewModel(factory = viewModelFactory)
+//    var state = viewModel.loginUser(user).collectAsState(initial = AuthState.Initial)
+//    var currentState = state.value
+    var token = "4"
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        content = {
-            Column(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                TextFieldWithTitle(
-                    title = "e-mail",
-                    hint = "example@example.ru",
-                    type = KeyboardType.Email
-                )
-                TextFieldWithTitle(
-                    title = "Пароль",
-                    hint = "********",
-                    visualTransformation = PasswordVisualTransformation(),
-                    type = KeyboardType.Password
-                )
-
-                Box(
-                    modifier = Modifier.padding(
-                        start = 16.dp,
-                        end = 16.dp,
-                        top = 16.dp,
-                        bottom = 4.dp
-                    )
+    if (token != null) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            content = {
+                Column(
+                    modifier = Modifier
+                        .padding(it)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Button(
-                        onClick = { },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.sign_in),
-                            fontSize = 18.sp,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                    TextFieldWithTitle(
+                        title = "e-mail",
+                        hint = "example@example.ru",
+                        type = KeyboardType.Email
+                    )
+                    TextFieldWithTitle(
+                        title = "Пароль",
+                        hint = "********",
+                        visualTransformation = PasswordVisualTransformation(),
+                        type = KeyboardType.Password
+                    )
+
+                    Box(
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 16.dp,
+                            bottom = 4.dp
                         )
+                    ) {
+                        Button(
+                            onClick = {
+                                onClickListener
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
+                        ) {
+                            Text(
+                                text = stringResource(R.string.sign_in),
+                                fontSize = 18.sp,
+                                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            )
+                        }
                     }
+
+                }
+            },
+            topBar = {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        disabledContainerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    shape = RoundedCornerShape(0.dp),
+                )
+
+                {
+                    CenterAlignedTopAppBar(
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(MaterialTheme.colorScheme.surface),
+                        title = {
+                            Text(
+                                text = stringResource(R.string.sign_in),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp
+                            )
+                        },
+                        modifier = Modifier.clip(RoundedCornerShape(0.dp))
+                    )
                 }
 
             }
-        },
-        topBar = {
-            Card(
-                colors = CardDefaults.cardColors(
-                    disabledContainerColor = MaterialTheme.colorScheme.surface,
-                    containerColor = MaterialTheme.colorScheme.surface),
-                shape = RoundedCornerShape(0.dp),
-            )
+        )
+    } else {
+        Text(text = "Error")
+    }
 
-            {
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(MaterialTheme.colorScheme.surface),
-                    title = {
-                        Text(
-                            text = stringResource(R.string.sign_in),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp
-                        )
-                    },
-                    modifier = Modifier.clip(RoundedCornerShape(0.dp))
-                )
-            }
-
-        }
-    )
 }
 
 @Composable
