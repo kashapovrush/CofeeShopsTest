@@ -38,12 +38,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kashapovrush.cofeeshopstest.R
+import com.kashapovrush.cofeeshopstest.navigation.NavigationState
+import com.kashapovrush.cofeeshopstest.navigation.Screen
 import com.kashapovrush.cofeeshopstest.presentation.customView.MinusEnabled
 import com.kashapovrush.cofeeshopstest.presentation.customView.PlusEnabled
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuScreen() {
+fun MenuScreen(
+    navigationState: NavigationState
+) {
     val scrollState = rememberLazyGridState()
 
 
@@ -74,7 +78,7 @@ fun MenuScreen() {
                                     )
                                 ) {
                                     Button(
-                                        onClick = { },
+                                        onClick = {navigationState.navigateTo(Screen.PaymentScreen.route) },
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .wrapContentHeight(),

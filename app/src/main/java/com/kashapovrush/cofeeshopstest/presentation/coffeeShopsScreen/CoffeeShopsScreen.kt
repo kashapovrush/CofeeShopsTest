@@ -2,6 +2,7 @@ package com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -27,32 +29,63 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kashapovrush.cofeeshopstest.R
+import com.kashapovrush.cofeeshopstest.navigation.NavigationState
+import com.kashapovrush.cofeeshopstest.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CoffeeShopsScreen() {
+fun CoffeeShopsScreen(
+    navigationState: NavigationState
+) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         content = {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                items(20) {
+            Column {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(it)
+                        .weight(1f)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    items(20) {
 
 
-                    CoffeeShopItem()
+                        CoffeeShopItem()
 
 
+                    }
+                }
+                Box(
+                    modifier = Modifier
+                        .padding(
+                            start = 8.dp,
+                            end = 8.dp,
+                            top = 8.dp,
+                            bottom = 4.dp
+                        )
+                ) {
+                    Button(
+                        onClick = {
+                                  navigationState.navigateTo(Screen.MenuScreen.route)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                    ) {
+                        Text(
+                            text = "На карте",
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                        )
+                    }
                 }
             }
+
         },
         topBar = {
             Card(
