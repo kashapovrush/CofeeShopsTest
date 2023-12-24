@@ -6,12 +6,11 @@ import androidx.activity.compose.setContent
 import com.kashapovrush.cofeeshopstest.data.model.User
 import com.kashapovrush.cofeeshopstest.navigation.AppNavGraph
 import com.kashapovrush.cofeeshopstest.navigation.rememberNavigationState
-import com.kashapovrush.cofeeshopstest.presentation.ViewModel.ViewModelFactory
 import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.CoffeeShopsScreen
-import com.kashapovrush.cofeeshopstest.presentation.loginScreen.RegisterScreen
+import com.kashapovrush.cofeeshopstest.presentation.authScreen.RegisterScreen
 import com.kashapovrush.cofeeshopstest.presentation.menuScreen.MenuScreen
 import com.kashapovrush.cofeeshopstest.presentation.paymentScreen.PaymentScreen
-import com.kashapovrush.cofeeshopstest.presentation.registerScreen.LoginScreen
+import com.kashapovrush.cofeeshopstest.presentation.authScreen.LoginScreen
 import com.kashapovrush.cofeeshopstest.ui.theme.CofeeShopsTestTheme
 import javax.inject.Inject
 
@@ -39,16 +38,14 @@ class MainActivity : ComponentActivity() {
 
                         RegisterScreen(
                             viewModelFactory = viewModelFactory,
-                            user = User("Rush", "rush"),
-                            context = this,
+                            lifecycleOwner = this,
                             navigationState = navigationState
                         )
                     },
                     loginScreenContent = {
                         LoginScreen(
                             viewModelFactory = viewModelFactory,
-                            user = User("Rush", "rush"),
-                            context = this,
+                            lifecycleOwner = this,
                             navigationState = navigationState
                         )
                     },

@@ -1,4 +1,4 @@
-package com.kashapovrush.cofeeshopstest.presentation.ViewModel
+package com.kashapovrush.cofeeshopstest.presentation.authScreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,7 +44,7 @@ class AuthViewModel @Inject constructor(
             }
 
             override fun onFailure(call: Call<Token>, t: Throwable) {
-                _registerState.value = null
+                _registerState.value = ""
             }
 
         })
