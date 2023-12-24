@@ -1,11 +1,9 @@
-package com.kashapovrush.cofeeshopstest.domain
+package com.kashapovrush.cofeeshopstest.domain.auth
 
 import com.kashapovrush.cofeeshopstest.data.model.Token
 import com.kashapovrush.cofeeshopstest.data.model.User
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
+import com.kashapovrush.cofeeshopstest.domain.auth.AuthRepository
 import retrofit2.Call
-import retrofit2.Response
 import javax.inject.Inject
 
 class RegisterUserUseCase @Inject constructor(private val repository: AuthRepository) {

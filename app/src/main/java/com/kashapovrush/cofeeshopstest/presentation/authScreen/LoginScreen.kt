@@ -1,6 +1,8 @@
 package com.kashapovrush.cofeeshopstest.presentation.authScreen
 
+import android.util.Log
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -109,7 +111,7 @@ fun LoginScreen(
                                     )
                                     viewModel.loginState.observe(lifecycleOwner) { token ->
                                         if (token != null) {
-                                            navigationState.navigateTo(Screen.CoffeeShopsScreen.route)
+                                            navigationState.navigateToCoffeeShops(token)
                                         } else {
                                             visible.value = true
                                             text.value = "Войти не удалось"
@@ -166,7 +168,9 @@ fun LoginScreen(
                                 fontSize = 24.sp
                             )
                         },
-                        modifier = Modifier.clip(RoundedCornerShape(0.dp))
+                        modifier = Modifier.clip(RoundedCornerShape(0.dp)).clickable {
+                            navigationState.navigateTo(Screen.CoffeeShopsScreen.route)
+                        }
                     )
                 }
 
