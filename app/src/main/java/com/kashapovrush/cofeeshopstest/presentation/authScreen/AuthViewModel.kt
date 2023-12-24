@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kashapovrush.cofeeshopstest.data.model.Token
 import com.kashapovrush.cofeeshopstest.data.model.User
-import com.kashapovrush.cofeeshopstest.domain.LoginUserUseCase
-import com.kashapovrush.cofeeshopstest.domain.RegisterUserUseCase
+import com.kashapovrush.cofeeshopstest.domain.auth.LoginUserUseCase
+import com.kashapovrush.cofeeshopstest.domain.auth.RegisterUserUseCase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +24,7 @@ class AuthViewModel @Inject constructor(
     val registerState: LiveData<String> = _registerState
 
     fun loginUser(user: User)  {
-        return loginUserUseCase(user).enqueue( object : Callback<Token> {
+        loginUserUseCase(user).enqueue( object : Callback<Token> {
             override fun onResponse(call: Call<Token>, response: Response<Token>) {
                 _loginState.value = response.body()?.token
             }

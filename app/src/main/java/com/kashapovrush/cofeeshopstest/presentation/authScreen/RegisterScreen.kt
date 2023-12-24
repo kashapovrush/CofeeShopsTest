@@ -1,6 +1,7 @@
 package com.kashapovrush.cofeeshopstest.presentation.authScreen
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -168,7 +169,9 @@ fun RegisterScreen(
                             fontSize = 24.sp
                         )
                     },
-                    modifier = Modifier.clip(RoundedCornerShape(0.dp))
+                    modifier = Modifier.clip(RoundedCornerShape(0.dp)).clickable {
+                        navigationState.navigateTo(Screen.LoginScreen.route)
+                    }
                 )
             }
 

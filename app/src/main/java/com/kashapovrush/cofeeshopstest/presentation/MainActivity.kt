@@ -3,12 +3,11 @@ package com.kashapovrush.cofeeshopstest.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.kashapovrush.cofeeshopstest.data.model.User
 import com.kashapovrush.cofeeshopstest.navigation.AppNavGraph
 import com.kashapovrush.cofeeshopstest.navigation.rememberNavigationState
 import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.CoffeeShopsScreen
 import com.kashapovrush.cofeeshopstest.presentation.authScreen.RegisterScreen
-import com.kashapovrush.cofeeshopstest.presentation.menuScreen.MenuScreen
+import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.MenuScreen
 import com.kashapovrush.cofeeshopstest.presentation.paymentScreen.PaymentScreen
 import com.kashapovrush.cofeeshopstest.presentation.authScreen.LoginScreen
 import com.kashapovrush.cofeeshopstest.ui.theme.CofeeShopsTestTheme
@@ -31,7 +30,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CofeeShopsTestTheme {
+
+
                 val navigationState = rememberNavigationState()
+
                 AppNavGraph(
                     navHostController = navigationState.navHostController,
                     registerScreenContent = {
@@ -49,8 +51,22 @@ class MainActivity : ComponentActivity() {
                             navigationState = navigationState
                         )
                     },
-                    coffeeShopsScreenContent = { CoffeeShopsScreen(navigationState) },
-                    menuScreenContent = { MenuScreen(navigationState) },
+                    coffeeShopsScreenContent = { token ->
+                        CoffeeShopsScreen(
+                            navigationState = navigationState,
+                            viewModelFactory = viewModelFactory,
+                            token = token
+                        )
+                    },
+                    menuScreenContent = { shop, token ->
+                        MenuScreen(
+                            navigationState = navigationState,
+                            viewModelFactory = viewModelFactory,
+                            token = token,
+                            shop = shop
+                        )
+
+                    },
                     mapScreenContent = { },
                     paymentScreenContent = {
                         PaymentScreen()

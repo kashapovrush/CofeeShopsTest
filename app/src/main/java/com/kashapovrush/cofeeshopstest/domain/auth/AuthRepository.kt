@@ -1,4 +1,4 @@
-package com.kashapovrush.cofeeshopstest.domain
+package com.kashapovrush.cofeeshopstest.domain.auth
 
 import com.kashapovrush.cofeeshopstest.data.model.Token
 import com.kashapovrush.cofeeshopstest.data.model.User

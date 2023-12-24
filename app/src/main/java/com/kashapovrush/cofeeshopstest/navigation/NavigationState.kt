@@ -19,6 +19,14 @@ class NavigationState(
             restoreState = true
         }
     }
+
+    fun navigateToCoffeeShops(token: String) {
+        navHostController.navigate(Screen.CoffeeShopsScreen.getRouteWithArgs(token))
+    }
+
+    fun navigateToMenu(shop: Int, token: String) {
+        navHostController.navigate(Screen.MenuScreen.getRoute(shop, token))
+    }
 }
 
 @Composable

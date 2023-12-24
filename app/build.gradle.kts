@@ -81,5 +81,5 @@ dependencies {
     implementation ("com.google.dagger:dagger:2.48.1")
     kapt ("com.google.dagger:dagger-compiler:2.48.1")
     implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
-//    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("io.coil-kt:coil-compose:2.1.0")
 }
