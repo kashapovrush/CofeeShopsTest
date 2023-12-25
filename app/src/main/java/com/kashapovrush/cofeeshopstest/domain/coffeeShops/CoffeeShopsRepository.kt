@@ -1,12 +1,10 @@
-package com.kashapovrush.cofeeshopstest.domain.location
+package com.kashapovrush.cofeeshopstest.domain.coffeeShops
 
 import com.kashapovrush.cofeeshopstest.data.model.Location
 import com.kashapovrush.cofeeshopstest.data.model.Menu
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import retrofit2.Call
 
-interface LocationRepository {
+interface CoffeeShopsRepository {
 
     suspend fun getLocations(token: String): Call<List<Location>>
 

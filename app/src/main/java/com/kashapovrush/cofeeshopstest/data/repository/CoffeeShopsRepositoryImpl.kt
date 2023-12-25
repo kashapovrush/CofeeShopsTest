@@ -4,13 +4,13 @@ import com.kashapovrush.cofeeshopstest.data.model.Location
 import com.kashapovrush.cofeeshopstest.data.model.Menu
 import com.kashapovrush.cofeeshopstest.data.network.ApiService
 import com.kashapovrush.cofeeshopstest.domain.Payment
-import com.kashapovrush.cofeeshopstest.domain.location.LocationRepository
+import com.kashapovrush.cofeeshopstest.domain.coffeeShops.CoffeeShopsRepository
 import retrofit2.Call
 import javax.inject.Inject
 
-class LocationRepositoryImpl @Inject constructor(
+class CoffeeShopsRepositoryImpl @Inject constructor(
     private val apiService: ApiService
-) : LocationRepository {
+) : CoffeeShopsRepository {
 
     private val _list = mutableListOf<Payment>()
     val list: List<Payment> = _list

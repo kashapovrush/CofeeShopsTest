@@ -22,7 +22,14 @@ class NavigationState(
     }
 
     fun navigateToCoffeeShops(token: String) {
-        navHostController.navigate(Screen.CoffeeShopsScreen.getRouteWithArgs(token))
+        navHostController.navigate(Screen.CoffeeShopsScreen.getRouteWithArgs(token)) {
+            popUpTo(navHostController.graph.findStartDestination().id) {
+                saveState = true
+            }
+
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     fun navigateToMenu(shop: Int, token: String) {

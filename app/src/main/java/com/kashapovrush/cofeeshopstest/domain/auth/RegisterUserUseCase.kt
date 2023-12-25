@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RegisterUserUseCase @Inject constructor(private val repository: AuthRepository) {
 
 
-    operator fun invoke(user: User): Call<Token> {
+    suspend operator fun invoke(user: User): Call<Token> {
         return repository.registerUser(user)
     }
 }

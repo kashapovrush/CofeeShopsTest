@@ -8,7 +8,7 @@ import com.kashapovrush.cofeeshopstest.navigation.rememberNavigationState
 import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.CoffeeShopsScreen
 import com.kashapovrush.cofeeshopstest.presentation.authScreen.RegisterScreen
 import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.MenuScreen
-import com.kashapovrush.cofeeshopstest.presentation.paymentScreen.PaymentScreen
+import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.PaymentScreen
 import com.kashapovrush.cofeeshopstest.presentation.authScreen.LoginScreen
 import com.kashapovrush.cofeeshopstest.ui.theme.CofeeShopsTestTheme
 import javax.inject.Inject
@@ -56,7 +56,9 @@ class MainActivity : ComponentActivity() {
                             navigationState = navigationState,
                             viewModelFactory = viewModelFactory,
                             token = token
-                        )
+                        ) {
+                            navigationState.navHostController.popBackStack()
+                        }
                     },
                     menuScreenContent = { shop, token ->
                         MenuScreen(
@@ -64,7 +66,9 @@ class MainActivity : ComponentActivity() {
                             viewModelFactory = viewModelFactory,
                             token = token,
                             shop = shop
-                        )
+                        ) {
+                            navigationState.navHostController.popBackStack()
+                        }
 
                     },
                     mapScreenContent = { },
@@ -74,7 +78,9 @@ class MainActivity : ComponentActivity() {
                             shop = shop,
                             token = token,
                             payment = payment
-                        )
+                        ) {
+                            navigationState.navHostController.popBackStack()
+                        }
                     })
             }
         }

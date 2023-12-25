@@ -1,4 +1,4 @@
-package com.kashapovrush.cofeeshopstest.presentation.paymentScreen
+package com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,8 +45,6 @@ import com.kashapovrush.cofeeshopstest.R
 import com.kashapovrush.cofeeshopstest.data.model.Menu
 import com.kashapovrush.cofeeshopstest.domain.Payment
 import com.kashapovrush.cofeeshopstest.presentation.ViewModelFactory
-import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.LocationViewModel
-import com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen.MenuState
 import com.kashapovrush.cofeeshopstest.presentation.customView.MinusEnabled
 import com.kashapovrush.cofeeshopstest.presentation.customView.PlusEnabled
 import com.kashapovrush.cofeeshopstest.ui.theme.BrownColor
@@ -56,7 +55,8 @@ fun PaymentScreen(
     viewModelFactory: ViewModelFactory,
     shop: Int,
     token: String,
-    payment: Payment
+    payment: Payment,
+    onBackPressed: () -> Unit
 ) {
 
     val viewModel: LocationViewModel = viewModel(factory = viewModelFactory)
@@ -67,13 +67,12 @@ fun PaymentScreen(
     if (currentState is MenuState.MenuItem) {
         Scaffold(
             content = {
-                Column {
+                Column  {
                     LazyColumn(
                         modifier = Modifier
                             .padding(it)
-//                            .weight(1f)
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
+                            .weight(1f)
+                            .fillMaxSize(),
                         verticalArrangement = Arrangement.Top
                     ) {
                         items(count = 1) {
@@ -122,8 +121,6 @@ fun PaymentScreen(
 
                     }
 
-
-
                     Box(
                         modifier = Modifier
                             .padding(
@@ -150,14 +147,11 @@ fun PaymentScreen(
 
 
                 }
-
-
             },
             topBar = {
                 Card(
                     colors = CardDefaults.cardColors(disabledContainerColor = MaterialTheme.colorScheme.surface),
-                    shape = RoundedCornerShape(0.dp),
-//                modifier = Modifier.padding(start = 16.dp)
+                    shape = RoundedCornerShape(0.dp)
                 )
 
                 {
@@ -166,9 +160,6 @@ fun PaymentScreen(
                         colors = CardDefaults.cardColors(
                             disabledContainerColor = MaterialTheme.colorScheme.surface,
                             containerColor = MaterialTheme.colorScheme.surface
-                        ),
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 5.dp
                         )
                     ) {
 
@@ -190,6 +181,9 @@ fun PaymentScreen(
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.padding(start = 16.dp)
+                                        .clickable {
+                                            onBackPressed()
+                                        }
                                 )
                             },
                             modifier = Modifier.clip(RoundedCornerShape(0.dp)),
@@ -198,7 +192,8 @@ fun PaymentScreen(
 
                 }
 
-            }
+            },
+            modifier = Modifier.fillMaxSize()
         )
     }
 
