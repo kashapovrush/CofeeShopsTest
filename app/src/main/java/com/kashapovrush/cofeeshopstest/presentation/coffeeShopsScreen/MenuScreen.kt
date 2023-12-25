@@ -48,7 +48,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.kashapovrush.cofeeshopstest.R
 import com.kashapovrush.cofeeshopstest.data.model.Menu
+import com.kashapovrush.cofeeshopstest.domain.Payment
 import com.kashapovrush.cofeeshopstest.navigation.NavigationState
+import com.kashapovrush.cofeeshopstest.navigation.Screen
 import com.kashapovrush.cofeeshopstest.presentation.ViewModelFactory
 import com.kashapovrush.cofeeshopstest.presentation.customView.MinusDisabled
 import com.kashapovrush.cofeeshopstest.presentation.customView.MinusEnabled
@@ -67,8 +69,10 @@ fun MenuScreen(
     val viewModel: LocationViewModel = viewModel(factory = viewModelFactory)
     val stateMenu = viewModel.stateMenu.observeAsState(MenuState.Initial)
     val currentState = stateMenu.value
-    Log.d("MenuScreen", currentState.toString())
     viewModel.getMenu(shop, "Bearer $token")
+
+    val listItem = mutableListOf<Payment>()
+    var list = mutableListOf<Payment>()
 
     if (currentState is MenuState.MenuItem) {
         Scaffold(
@@ -81,7 +85,7 @@ fun MenuScreen(
                         .padding(paddingValues),
                     content = {
                         items(items = currentState.items, key = { it.id }) { menu ->
-                            MenuCard(menu)
+                            list = MenuCard(menu)
                         }
 
                         item(span = {
@@ -98,7 +102,14 @@ fun MenuScreen(
                                 ) {
                                     Button(
                                         onClick = {
-//                                            navigationState.navigateTo(Screen.PaymentScreen.route)
+
+                                            list.forEach {
+                                                navigationState.navigateToPayment(shop, token, it)
+                                            }
+
+
+
+
                                         },
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -163,7 +174,9 @@ fun MenuScreen(
 @Composable
 fun MenuCard(
     menu: Menu
-) {
+): MutableList<Payment> {
+
+    var list = mutableListOf<Payment>()
 
     val count = remember {
         mutableIntStateOf(0)
@@ -173,7 +186,9 @@ fun MenuCard(
         mutableStateOf(false)
     }
 
-    Box(modifier = Modifier.padding(8.dp).fillMaxWidth()) {
+    Box(modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth()) {
         Card(
             colors = CardDefaults.cardColors(
                 disabledContainerColor = MaterialTheme.colorScheme.background,
@@ -186,9 +201,13 @@ fun MenuCard(
             )
 
         ) {
-            AsyncImage(model = menu.imageUrl, contentDescription = null,
+            AsyncImage(
+                model = menu.imageUrl, contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(170.dp).fillMaxWidth())
+                modifier = Modifier
+                    .size(170.dp)
+                    .fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = menu.name, modifier = Modifier.padding(start = 8.dp))
             Spacer(modifier = Modifier.height(8.dp))
@@ -243,4 +262,8 @@ fun MenuCard(
             Spacer(modifier = Modifier.height(12.dp))
         }
     }
+
+    list.add(Payment(menu.id, count.value))
+
+    return list
 }

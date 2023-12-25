@@ -1,5 +1,9 @@
 package com.kashapovrush.cofeeshopstest.navigation
 
+import android.net.Uri
+import com.google.gson.Gson
+import com.kashapovrush.cofeeshopstest.domain.Payment
+
 sealed class Screen(
     val route: String
 ) {
@@ -24,7 +28,16 @@ sealed class Screen(
         }
 
     }
-    object PaymentScreen: Screen(ROUTE_PAYMENT)
+    object PaymentScreen: Screen(ROUTE_PAYMENT) {
+
+        private const val ROUTE_FOR_PAYMENT = "route_payment"
+
+        fun getRouteForPayment(shop: Int, token: String, payment: Payment): String {
+            val paymentJson = Gson().toJson(payment)
+            return "${ROUTE_FOR_PAYMENT}/$shop/$token/${Uri.encode(paymentJson)}"
+        }
+
+    }
 
     companion object {
 
@@ -33,6 +46,6 @@ sealed class Screen(
         private const val ROUTE_COFFEE_SHOPS = "route_coffee_shops/{token}"
         private const val ROUTE_MAP = "route_map"
         private const val ROUTE_MENU = "route_menu/{shop}/{token}"
-        private const val ROUTE_PAYMENT = "route_PAYMENT"
+        private const val ROUTE_PAYMENT = "route_payment/{shop}/{token}/{payment}"
     }
 }
