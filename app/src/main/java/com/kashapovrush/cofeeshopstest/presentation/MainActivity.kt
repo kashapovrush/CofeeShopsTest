@@ -68,8 +68,13 @@ class MainActivity : ComponentActivity() {
 
                     },
                     mapScreenContent = { },
-                    paymentScreenContent = {
-                        PaymentScreen()
+                    paymentScreenContent = { shop, token, payment ->
+                        PaymentScreen(
+                            viewModelFactory = viewModelFactory,
+                            shop = shop,
+                            token = token,
+                            payment = payment
+                        )
                     })
             }
         }

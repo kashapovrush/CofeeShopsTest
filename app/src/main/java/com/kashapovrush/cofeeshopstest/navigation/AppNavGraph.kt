@@ -6,6 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.gson.Gson
+import com.kashapovrush.cofeeshopstest.domain.Payment
 
 @Composable
 fun AppNavGraph(
@@ -15,7 +17,7 @@ fun AppNavGraph(
     coffeeShopsScreenContent: @Composable (String) -> Unit,
     menuScreenContent: @Composable (Int, String) -> Unit,
     mapScreenContent: @Composable () -> Unit,
-    paymentScreenContent: @Composable () -> Unit,
+    paymentScreenContent: @Composable (Int, String, Payment) -> Unit,
 
     ) {
     NavHost(navController = navHostController, startDestination = Screen.RegisterScreen.route) {
@@ -44,8 +46,22 @@ fun AppNavGraph(
             val token = it.arguments?.getString("token") ?: ""
             menuScreenContent(shop, token)
         }
-        composable(Screen.PaymentScreen.route) {
-            paymentScreenContent()
+        composable(
+            route = Screen.PaymentScreen.route,
+            arguments = listOf(
+                navArgument("shop") {
+                    type = NavType.IntType
+                },
+                navArgument("payment") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val shop = it.arguments?.getInt("shop") ?: 0
+            val token = it.arguments?.getString("token") ?: ""
+            val paymentJson = it.arguments?.getString("payment")
+            val payment = Gson().fromJson(paymentJson, Payment::class.java)
+            paymentScreenContent(shop, token, payment)
         }
     }
 }

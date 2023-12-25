@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.kashapovrush.cofeeshopstest.domain.Payment
 
 class NavigationState(
     val navHostController: NavHostController
@@ -26,6 +27,10 @@ class NavigationState(
 
     fun navigateToMenu(shop: Int, token: String) {
         navHostController.navigate(Screen.MenuScreen.getRoute(shop, token))
+    }
+
+    fun navigateToPayment(shop: Int, token: String, payment: Payment) {
+        navHostController.navigate(Screen.PaymentScreen.getRouteForPayment(shop, token, payment))
     }
 }
 
