@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kashapovrush.cofeeshopstest.data.model.Location
 import com.kashapovrush.cofeeshopstest.data.model.Menu
-import com.kashapovrush.cofeeshopstest.domain.location.GetLocationsUseCase
-import com.kashapovrush.cofeeshopstest.domain.location.GetMenuUseCase
+import com.kashapovrush.cofeeshopstest.domain.coffeeShops.GetLocationsUseCase
+import com.kashapovrush.cofeeshopstest.domain.coffeeShops.GetMenuUseCase
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

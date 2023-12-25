@@ -11,11 +11,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ): AuthRepository {
 
-    override fun loginUser(user: User): Call<Token> {
+    override suspend fun loginUser(user: User): Call<Token> {
         return apiService.loginUser(user)
     }
 
-    override fun registerUser(user: User): Call<Token> {
+    override suspend fun registerUser(user: User): Call<Token> {
         return apiService.registerUser(user)
     }
 

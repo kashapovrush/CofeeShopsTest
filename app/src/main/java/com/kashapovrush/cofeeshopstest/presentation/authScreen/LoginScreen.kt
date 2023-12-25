@@ -168,9 +168,7 @@ fun LoginScreen(
                                 fontSize = 24.sp
                             )
                         },
-                        modifier = Modifier.clip(RoundedCornerShape(0.dp)).clickable {
-                            navigationState.navigateTo(Screen.CoffeeShopsScreen.route)
-                        }
+                        modifier = Modifier.clip(RoundedCornerShape(0.dp))
                     )
                 }
 

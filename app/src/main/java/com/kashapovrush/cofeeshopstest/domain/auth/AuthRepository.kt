@@ -6,7 +6,7 @@ import retrofit2.Call
 
 interface AuthRepository {
 
-    fun loginUser(user: User): Call<Token>
+    suspend fun loginUser(user: User): Call<Token>
 
-    fun registerUser(user: User): Call<Token>
+    suspend fun registerUser(user: User): Call<Token>
 }

@@ -62,7 +62,8 @@ fun MenuScreen(
     navigationState: NavigationState,
     viewModelFactory: ViewModelFactory,
     token: String,
-    shop: Int
+    shop: Int,
+    onBackPressed: () -> Unit
 ) {
     val scrollState = rememberLazyGridState()
 
@@ -71,7 +72,6 @@ fun MenuScreen(
     val currentState = stateMenu.value
     viewModel.getMenu(shop, "Bearer $token")
 
-    val listItem = mutableListOf<Payment>()
     var list = mutableListOf<Payment>()
 
     if (currentState is MenuState.MenuItem) {
@@ -102,14 +102,9 @@ fun MenuScreen(
                                 ) {
                                     Button(
                                         onClick = {
-
                                             list.forEach {
                                                 navigationState.navigateToPayment(shop, token, it)
                                             }
-
-
-
-
                                         },
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -160,7 +155,10 @@ fun MenuScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_back_button),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onBackground
+                                tint = MaterialTheme.colorScheme.onBackground,
+                                modifier = Modifier.clickable {
+                                    onBackPressed()
+                                }
                             )
                         },
                         modifier = Modifier.clip(RoundedCornerShape(0.dp))

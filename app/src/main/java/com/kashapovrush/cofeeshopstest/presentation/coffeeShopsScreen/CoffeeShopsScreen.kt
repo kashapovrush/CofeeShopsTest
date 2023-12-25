@@ -46,7 +46,8 @@ import com.kashapovrush.cofeeshopstest.presentation.ViewModelFactory
 fun CoffeeShopsScreen(
     navigationState: NavigationState,
     viewModelFactory: ViewModelFactory,
-    token: String
+    token: String,
+    onBackPressed: () -> Unit
 ) {
 
 
@@ -130,7 +131,10 @@ fun CoffeeShopsScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_back_button),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onBackground
+                                tint = MaterialTheme.colorScheme.onBackground,
+                                modifier = Modifier.clickable {
+                                    onBackPressed()
+                                }
                             )
                         },
                         modifier = Modifier.clip(RoundedCornerShape(0.dp))
