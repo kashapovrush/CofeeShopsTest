@@ -3,9 +3,13 @@ package com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kashapovrush.cofeeshopstest.data.model.Location
 import com.kashapovrush.cofeeshopstest.data.model.Menu
+import com.kashapovrush.cofeeshopstest.domain.Payment
+import com.kashapovrush.cofeeshopstest.domain.coffeeShops.AddPaymentItemUseCase
+import com.kashapovrush.cofeeshopstest.domain.coffeeShops.GetListUseCase
 import com.kashapovrush.cofeeshopstest.domain.coffeeShops.GetLocationsUseCase
 import com.kashapovrush.cofeeshopstest.domain.coffeeShops.GetMenuUseCase
 import kotlinx.coroutines.launch
@@ -16,7 +20,9 @@ import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
     private val getLocationsUseCase: GetLocationsUseCase,
-    private val getMenuUseCase: GetMenuUseCase
+    private val getMenuUseCase: GetMenuUseCase,
+    private val addPaymentItemUseCase: AddPaymentItemUseCase,
+    private val getListUseCase: GetListUseCase
 ) : ViewModel() {
 
     private val _stateListLocations = MutableLiveData<LocationsState>(LocationsState.Initial)
@@ -24,6 +30,8 @@ class LocationViewModel @Inject constructor(
 
     private val _stateMenu = MutableLiveData<MenuState>(MenuState.Initial)
     val stateMenu: LiveData<MenuState> = _stateMenu
+
+    val paymentList = getListUseCase().asLiveData()
 
 
     fun getLocations(token: String) {
@@ -61,5 +69,12 @@ class LocationViewModel @Inject constructor(
 
             })
         }
+    }
+
+    fun addPaymentItem(payment: Payment) {
+        viewModelScope.launch {
+            addPaymentItemUseCase(payment)
+        }
+
     }
 }

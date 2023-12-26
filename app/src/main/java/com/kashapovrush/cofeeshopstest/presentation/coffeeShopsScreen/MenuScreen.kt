@@ -1,6 +1,5 @@
 package com.kashapovrush.cofeeshopstest.presentation.coffeeShopsScreen
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -72,7 +71,7 @@ fun MenuScreen(
     val currentState = stateMenu.value
     viewModel.getMenu(shop, "Bearer $token")
 
-    var list = mutableListOf<Payment>()
+
 
     if (currentState is MenuState.MenuItem) {
         Scaffold(
@@ -85,7 +84,8 @@ fun MenuScreen(
                         .padding(paddingValues),
                     content = {
                         items(items = currentState.items, key = { it.id }) { menu ->
-                            list = MenuCard(menu)
+                            val payment = MenuCard(menu)
+                            viewModel.addPaymentItem(payment)
                         }
 
                         item(span = {
@@ -102,9 +102,12 @@ fun MenuScreen(
                                 ) {
                                     Button(
                                         onClick = {
-                                            list.forEach {
-                                                navigationState.navigateToPayment(shop, token, it)
-                                            }
+                                            navigationState.navigateToPayment(
+                                                shop,
+                                                token,
+                                                Payment(0, "", 0, 0)
+                                            )
+
                                         },
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -172,7 +175,7 @@ fun MenuScreen(
 @Composable
 fun MenuCard(
     menu: Menu
-): MutableList<Payment> {
+): Payment {
 
     var list = mutableListOf<Payment>()
 
@@ -184,9 +187,11 @@ fun MenuCard(
         mutableStateOf(false)
     }
 
-    Box(modifier = Modifier
-        .padding(8.dp)
-        .fillMaxWidth()) {
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    ) {
         Card(
             colors = CardDefaults.cardColors(
                 disabledContainerColor = MaterialTheme.colorScheme.background,
@@ -261,7 +266,5 @@ fun MenuCard(
         }
     }
 
-    list.add(Payment(menu.id, count.value))
-
-    return list
+    return Payment(id = menu.id, count = count.value, name = menu.name, price = menu.price)
 }

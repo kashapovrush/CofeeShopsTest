@@ -7,6 +7,6 @@ import com.kashapovrush.cofeeshopstest.di.DaggerApplicationComponent
 class CoffeeShopsApplication: Application() {
 
     val component: ApplicationComponent by lazy {
-        DaggerApplicationComponent.factory().create(this)
+        DaggerApplicationComponent.factory().create(this, this)
     }
 }
