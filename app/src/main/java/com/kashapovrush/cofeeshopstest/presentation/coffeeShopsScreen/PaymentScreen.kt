@@ -69,13 +69,14 @@ fun PaymentScreen(
     val currentState = items.value
 
     var new = mutableListOf<Payment>()
+    val emptyItems = remember {
+        mutableStateOf(true)
+    }
 
     viewModel.paymentList.observe(lifecycleOwner) { list ->
         new = list.toMutableList().apply {
             removeIf { it.count == 0 }
-
         }
-
     }
 
     if (currentState is MenuState.MenuItem) {
@@ -92,47 +93,60 @@ fun PaymentScreen(
                         items(items = currentState.items, key = {it.id} ) {
                             new.forEachIndexed { index, payment ->
                                 if (new[index].id == it.id) {
-                                    Item(new[index])
+                                        Item(new[index])
+                                        emptyItems.value = false
                                 }
                             }
 
 
                         }
 
-                        item {
-                            Spacer(modifier = Modifier.height(48.dp))
-                            Text(
-                                text = "Время ожидания заказа",
-                                color = MaterialTheme.colorScheme.onBackground,
-                                fontSize = 24.sp,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 20.dp)
-                                    .fillMaxWidth(),
-                                textAlign = TextAlign.Center
-                            )
+                        
+                            item {
+                                
+                                if (!emptyItems.value) {
+                                    Spacer(modifier = Modifier.height(48.dp))
+                                    Text(
+                                        text = "Время ожидания заказа",
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        fontSize = 24.sp,
+                                        modifier = Modifier
+                                            .padding(start = 20.dp, end = 20.dp)
+                                            .fillMaxWidth(),
+                                        textAlign = TextAlign.Center
+                                    )
 
-                            Text(
-                                text = "15 мин!",
-                                color = MaterialTheme.colorScheme.onBackground,
-                                fontSize = 24.sp,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 20.dp)
-                                    .fillMaxWidth(),
-                                textAlign = TextAlign.Center
-                            )
+                                    Text(
+                                        text = "15 мин!",
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        fontSize = 24.sp,
+                                        modifier = Modifier
+                                            .padding(start = 20.dp, end = 20.dp)
+                                            .fillMaxWidth(),
+                                        textAlign = TextAlign.Center
+                                    )
 
-                            Text(
-                                text = "Спасибо, что выбрали нас!",
-                                color = MaterialTheme.colorScheme.onBackground,
-                                fontSize = 24.sp,
-                                modifier = Modifier
-                                    .padding(start = 20.dp, end = 20.dp)
-                                    .fillMaxWidth(),
-                                textAlign = TextAlign.Center
-                            )
+                                    Text(
+                                        text = "Спасибо, что выбрали нас!",
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        fontSize = 24.sp,
+                                        modifier = Modifier
+                                            .padding(start = 20.dp, end = 20.dp)
+                                            .fillMaxWidth(),
+                                        textAlign = TextAlign.Center
+                                    )
 
-                            Spacer(modifier = Modifier.height(48.dp))
-                        }
+                                    Spacer(modifier = Modifier.height(48.dp))  
+                                } else {
+                                    Box (modifier = Modifier.fillMaxSize(),
+                                        contentAlignment = Alignment.Center){
+                                        Text(text = "Пусто")
+                                    }
+
+                                }
+                                
+                            }
+
 
                     }
 
@@ -195,7 +209,8 @@ fun PaymentScreen(
                                     painter = painterResource(id = R.drawable.ic_back_button),
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onBackground,
-                                    modifier = Modifier.padding(start = 16.dp)
+                                    modifier = Modifier
+                                        .padding(start = 16.dp)
                                         .clickable {
                                             onBackPressed()
                                         }
