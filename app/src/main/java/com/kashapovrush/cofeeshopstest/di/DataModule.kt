@@ -1,5 +1,8 @@
 package com.kashapovrush.cofeeshopstest.di
 
+import android.app.Application
+import com.kashapovrush.cofeeshopstest.data.database.AppDatabase
+import com.kashapovrush.cofeeshopstest.data.database.PaymentDao
 import com.kashapovrush.cofeeshopstest.data.network.ApiFactory
 import com.kashapovrush.cofeeshopstest.data.network.ApiService
 import com.kashapovrush.cofeeshopstest.data.repository.AuthRepositoryImpl
@@ -27,6 +30,12 @@ interface DataModule {
         @Provides
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
+        }
+
+        @ApplicationScope
+        @Provides
+        fun providePaymentDao(application: Application): PaymentDao {
+            return AppDatabase.getInstance(application).paymentDao()
         }
     }
 }

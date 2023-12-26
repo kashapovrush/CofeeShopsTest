@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
+            
             CofeeShopsTestTheme {
 
 
@@ -77,7 +78,8 @@ class MainActivity : ComponentActivity() {
                             viewModelFactory = viewModelFactory,
                             shop = shop,
                             token = token,
-                            payment = payment
+                            payment = payment,
+                            lifecycleOwner = this
                         ) {
                             navigationState.navHostController.popBackStack()
                         }
