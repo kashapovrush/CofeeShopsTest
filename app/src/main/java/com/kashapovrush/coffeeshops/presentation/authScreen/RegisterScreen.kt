@@ -169,9 +169,7 @@ fun RegisterScreen(
                             fontSize = 24.sp
                         )
                     },
-                    modifier = Modifier.clip(RoundedCornerShape(0.dp)).clickable {
-                        navigationState.navigateTo(Screen.LoginScreen.route)
-                    }
+                    modifier = Modifier.clip(RoundedCornerShape(0.dp))
                 )
             }
 

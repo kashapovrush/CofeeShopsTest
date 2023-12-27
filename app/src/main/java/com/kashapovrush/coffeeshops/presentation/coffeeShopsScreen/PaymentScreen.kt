@@ -61,7 +61,7 @@ fun PaymentScreen(
     onBackPressed: () -> Unit
 ) {
 
-    val viewModel: LocationViewModel = viewModel(factory = viewModelFactory)
+    val viewModel: CoffeeShopsViewModel = viewModel(factory = viewModelFactory)
     viewModel.getMenu(shop, "Bearer $token")
     val items = viewModel.stateMenu.observeAsState(initial = MenuState.Initial)
     val currentState = items.value

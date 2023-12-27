@@ -65,7 +65,7 @@ fun MenuScreen(
 ) {
     val scrollState = rememberLazyGridState()
 
-    val viewModel: LocationViewModel = viewModel(factory = viewModelFactory)
+    val viewModel: CoffeeShopsViewModel = viewModel(factory = viewModelFactory)
     val stateMenu = viewModel.stateMenu.observeAsState(MenuState.Initial)
     val currentState = stateMenu.value
     viewModel.getMenu(shop, "Bearer $token")
