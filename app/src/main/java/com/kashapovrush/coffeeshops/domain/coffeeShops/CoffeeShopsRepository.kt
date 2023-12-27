@@ -1,18 +1,15 @@
 package com.kashapovrush.coffeeshops.domain.coffeeShops
 
-import com.kashapovrush.coffeeshops.data.model.LocationDto
-import com.kashapovrush.coffeeshops.data.model.MenuDto
 import com.kashapovrush.coffeeshops.domain.entity.Location
 import com.kashapovrush.coffeeshops.domain.entity.Menu
 import com.kashapovrush.coffeeshops.domain.entity.Payment
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Call
 
 interface CoffeeShopsRepository {
 
-    suspend fun getLocations(token: String): Call<List<LocationDto>>
+    fun getLocations(token: String): Flow<List<Location>>
 
-    suspend fun getMenu(shop: Int, token: String): Call<List<MenuDto>>
+    fun getMenu(shop: Int, token: String): Flow<List<Menu>>
 
     suspend fun addPaymentItem(payment: Payment)
 

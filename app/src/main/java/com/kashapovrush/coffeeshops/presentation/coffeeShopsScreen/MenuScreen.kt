@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.kashapovrush.coffeeshops.R
-import com.kashapovrush.coffeeshops.data.model.MenuDto
+import com.kashapovrush.coffeeshops.domain.entity.Menu
 import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.navigation.NavigationState
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
@@ -173,7 +173,7 @@ fun MenuScreen(
 
 @Composable
 fun MenuCard(
-    menu: MenuDto
+    menu: Menu
 ): Payment {
 
     var list = mutableListOf<Payment>()

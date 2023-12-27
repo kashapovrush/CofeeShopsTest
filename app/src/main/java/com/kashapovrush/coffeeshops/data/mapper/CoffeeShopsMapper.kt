@@ -1,12 +1,15 @@
 package com.kashapovrush.coffeeshops.data.mapper
 
 import com.kashapovrush.coffeeshops.data.database.PaymentDb
+import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.data.model.MenuDto
 import com.kashapovrush.coffeeshops.data.model.TokenDto
 import com.kashapovrush.coffeeshops.data.model.UserDto
+import com.kashapovrush.coffeeshops.domain.entity.Location
+import com.kashapovrush.coffeeshops.domain.entity.Menu
 import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.domain.entity.Token
 import com.kashapovrush.coffeeshops.domain.entity.User
-import retrofit2.Call
 import javax.inject.Inject
 
 class CoffeeShopsMapper @Inject constructor() {
@@ -50,5 +53,37 @@ class CoffeeShopsMapper @Inject constructor() {
             login = user.login,
             password = user.password
         )
+    }
+
+    fun mapLocationListDtoToListEntity(locations: List<LocationDto>): List<Location> {
+        val result = mutableListOf<Location>()
+        locations.forEach {
+            result.add(
+                Location(
+                    id = it.id,
+                    name = it.name,
+                    latitude = it.pointDto.latitude,
+                    longitude = it.pointDto.longitude
+                )
+            )
+        }
+
+        return result
+    }
+
+    fun mapMenuListDtoToListEntity(items: List<MenuDto>): List<Menu> {
+        val result = mutableListOf<Menu>()
+        items.forEach {
+            result.add(
+                Menu(
+                    id = it.id,
+                    name = it.name,
+                    imageUrl = it.imageUrl,
+                    price = it.price
+                )
+            )
+        }
+
+        return result
     }
 }

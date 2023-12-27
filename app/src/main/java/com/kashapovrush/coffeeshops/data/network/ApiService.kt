@@ -4,6 +4,7 @@ import com.kashapovrush.coffeeshops.data.model.LocationDto
 import com.kashapovrush.coffeeshops.data.model.MenuDto
 import com.kashapovrush.coffeeshops.data.model.TokenDto
 import com.kashapovrush.coffeeshops.data.model.UserDto
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -24,14 +25,14 @@ interface ApiService {
 
     @Headers("accept: application/json")
     @GET("locations")
-    fun getLocations(@Header("Authorization") token: String): Call<List<LocationDto>>
+    suspend fun getLocations(@Header("Authorization") token: String): List<LocationDto>
 
     @Headers("accept: application/json")
     @GET("location/{shop}/menu")
-    fun getMenu(
+    suspend fun getMenu(
         @Path("shop") shop: Int,
         @Header("Authorization") token: String
-    ): Call<List<MenuDto>>
+    ): List<MenuDto>
 
 
 

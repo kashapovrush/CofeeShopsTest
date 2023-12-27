@@ -2,16 +2,15 @@ package com.kashapovrush.coffeeshops.data.repository
 
 import com.kashapovrush.coffeeshops.data.database.PaymentDao
 import com.kashapovrush.coffeeshops.data.mapper.CoffeeShopsMapper
-import com.kashapovrush.coffeeshops.data.model.LocationDto
-import com.kashapovrush.coffeeshops.data.model.MenuDto
 import com.kashapovrush.coffeeshops.data.network.ApiService
 import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.domain.coffeeShops.CoffeeShopsRepository
 import com.kashapovrush.coffeeshops.domain.entity.Location
 import com.kashapovrush.coffeeshops.domain.entity.Menu
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import retrofit2.Call
 import javax.inject.Inject
 
 class CoffeeShopsRepositoryImpl @Inject constructor(
@@ -24,12 +23,16 @@ class CoffeeShopsRepositoryImpl @Inject constructor(
     val list: List<Payment> = _list
 
 
-    override suspend fun getLocations(token: String): Call<List<LocationDto>> {
-        return apiService.getLocations(token)
-    }
+    override fun getLocations(token: String): Flow<List<Location>> = flow {
+        emit(apiService.getLocations(token))
+    }.map {
+        mapper.mapLocationListDtoToListEntity(it)
+    }.catch {  }
 
-    override suspend fun getMenu(shop: Int, token: String): Call<List<MenuDto>> {
-        return apiService.getMenu(shop, token)
+    override fun getMenu(shop: Int, token: String): Flow<List<Menu>>  = flow {
+        emit( apiService.getMenu(shop, token))
+    }.map {
+        mapper.mapMenuListDtoToListEntity(it)
     }
 
     override suspend fun addPaymentItem(payment: Payment) {
@@ -39,8 +42,8 @@ class CoffeeShopsRepositoryImpl @Inject constructor(
     override fun getListPayments(): Flow<List<Payment>> {
         return paymentDao.getList()
             .map {
-            mapper.mapListDbModelToListEntity(it)
-        }
+                mapper.mapListDbModelToListEntity(it)
+            }
     }
 }
 

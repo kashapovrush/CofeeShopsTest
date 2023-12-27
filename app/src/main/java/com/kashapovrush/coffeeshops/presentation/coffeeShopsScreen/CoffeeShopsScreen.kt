@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.coffeeshops.R
 import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.domain.entity.Location
 import com.kashapovrush.coffeeshops.navigation.NavigationState
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
 
@@ -149,7 +150,7 @@ fun CoffeeShopsScreen(
 
 @Composable
 fun CoffeeShopItem(
-    text: LocationDto,
+    text: Location,
     navigateToMenu: (Int) -> Unit
 ) {
     Box(

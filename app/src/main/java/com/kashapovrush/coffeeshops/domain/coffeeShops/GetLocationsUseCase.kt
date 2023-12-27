@@ -1,13 +1,12 @@
 package com.kashapovrush.coffeeshops.domain.coffeeShops
 
-import com.kashapovrush.coffeeshops.data.model.LocationDto
 import com.kashapovrush.coffeeshops.domain.entity.Location
-import retrofit2.Call
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetLocationsUseCase @Inject constructor(private val repository: CoffeeShopsRepository) {
 
-    suspend operator fun invoke(token: String): Call<List<LocationDto>> {
+    operator fun invoke(token: String): Flow<List<Location>> {
         return repository.getLocations(token)
     }
 }
