@@ -25,8 +25,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,7 +38,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.coffeeshops.R
 import com.kashapovrush.coffeeshops.data.model.Location
 import com.kashapovrush.coffeeshops.navigation.NavigationState
-import com.kashapovrush.coffeeshops.navigation.Screen
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,7 +87,7 @@ fun CoffeeShopsScreen(
                     ) {
                         Button(
                             onClick = {
-                                navigationState.navigateToCoffeeShops(Screen.MenuScreen.route)
+
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -159,7 +158,8 @@ fun CoffeeShopItem(
             .clickable {
                 navigateToMenu(text.id)
             }
-            .padding(start = 8.dp, end = 8.dp)
+            .padding(start = 8.dp, end = 8.dp),
+        contentAlignment = Alignment.Center
     ) {
         Card(
             modifier = Modifier
@@ -172,25 +172,16 @@ fun CoffeeShopItem(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.tertiary
             ),
-            shape = RoundedCornerShape(2.dp)
+            shape = RoundedCornerShape(2.dp),
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = text.name,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 20.sp,
                 modifier = Modifier.padding(start = 8.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "2 км от вас",
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 14.sp,
-                modifier = Modifier
-                    .padding(start = 8.dp)
-                    .alpha(0.5f)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
         }
     }
