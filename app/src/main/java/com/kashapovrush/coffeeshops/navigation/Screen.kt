@@ -2,7 +2,7 @@ package com.kashapovrush.coffeeshops.navigation
 
 import android.net.Uri
 import com.google.gson.Gson
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 
 sealed class Screen(
     val route: String

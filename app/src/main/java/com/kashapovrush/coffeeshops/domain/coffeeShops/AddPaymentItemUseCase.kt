@@ -1,6 +1,6 @@
 package com.kashapovrush.coffeeshops.domain.coffeeShops
 
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 import javax.inject.Inject
 
 class AddPaymentItemUseCase @Inject constructor(private val repository: CoffeeShopsRepository) {

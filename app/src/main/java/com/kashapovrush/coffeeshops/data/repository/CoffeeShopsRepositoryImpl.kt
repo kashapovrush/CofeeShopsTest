@@ -2,11 +2,13 @@ package com.kashapovrush.coffeeshops.data.repository
 
 import com.kashapovrush.coffeeshops.data.database.PaymentDao
 import com.kashapovrush.coffeeshops.data.mapper.CoffeeShopsMapper
-import com.kashapovrush.coffeeshops.data.model.Location
-import com.kashapovrush.coffeeshops.data.model.Menu
+import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.data.model.MenuDto
 import com.kashapovrush.coffeeshops.data.network.ApiService
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.domain.coffeeShops.CoffeeShopsRepository
+import com.kashapovrush.coffeeshops.domain.entity.Location
+import com.kashapovrush.coffeeshops.domain.entity.Menu
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import retrofit2.Call
@@ -22,11 +24,11 @@ class CoffeeShopsRepositoryImpl @Inject constructor(
     val list: List<Payment> = _list
 
 
-    override suspend fun getLocations(token: String): Call<List<Location>> {
+    override suspend fun getLocations(token: String): Call<List<LocationDto>> {
         return apiService.getLocations(token)
     }
 
-    override suspend fun getMenu(shop: Int, token: String): Call<List<Menu>> {
+    override suspend fun getMenu(shop: Int, token: String): Call<List<MenuDto>> {
         return apiService.getMenu(shop, token)
     }
 

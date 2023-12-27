@@ -83,7 +83,9 @@ dependencies {
     kapt ("com.google.dagger:dagger-compiler:2.48.1")
     implementation ("com.yandex.android:maps.mobile:4.4.0-lite")
     implementation ("io.coil-kt:coil-compose:2.1.0")
-    implementation ("androidx.room:room-runtime:2.6.0")
-    kapt ("androidx.room:room-compiler:2.6.0")
-    implementation ("androidx.room:room-ktx:2.6.0")
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

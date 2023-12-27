@@ -1,22 +1,31 @@
 package com.kashapovrush.coffeeshops.data.repository
 
-import com.kashapovrush.coffeeshops.data.model.Token
-import com.kashapovrush.coffeeshops.data.model.User
+import com.kashapovrush.coffeeshops.data.mapper.CoffeeShopsMapper
+import com.kashapovrush.coffeeshops.data.model.TokenDto
 import com.kashapovrush.coffeeshops.data.network.ApiService
 import com.kashapovrush.coffeeshops.domain.auth.AuthRepository
-import retrofit2.Call
+import com.kashapovrush.coffeeshops.domain.entity.Token
+import com.kashapovrush.coffeeshops.domain.entity.User
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val mapper: CoffeeShopsMapper
 ): AuthRepository {
 
-    override suspend fun loginUser(user: User): Call<Token> {
-        return apiService.loginUser(user)
+    override fun loginUser(user: User): Flow<Token>  = flow {
+         emit(mapper.mapTokenDtoToEntity(apiService.loginUser(mapper.mapUserToDto(user))))
+    }.catch {
+        this.emit(mapper.mapTokenDtoToEntity(TokenDto("", 0)))
     }
 
-    override suspend fun registerUser(user: User): Call<Token> {
-        return apiService.registerUser(user)
+    override fun registerUser(user: User): Flow<Token>  = flow {
+        emit(mapper.mapTokenDtoToEntity(apiService.registerUser(mapper.mapUserToDto(user))))
+    }.catch {
+        this.emit(mapper.mapTokenDtoToEntity(TokenDto("", 0)))
     }
 
 

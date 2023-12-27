@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.coffeeshops.R
-import com.kashapovrush.coffeeshops.data.model.User
+import com.kashapovrush.coffeeshops.domain.entity.User
 import com.kashapovrush.coffeeshops.navigation.NavigationState
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
 
@@ -104,7 +104,7 @@ fun LoginScreen(
                                         )
                                     )
                                     viewModel.loginState.observe(lifecycleOwner) { token ->
-                                        if (token != null) {
+                                        if (token != "") {
                                             navigationState.navigateToCoffeeShops(token)
                                         } else {
                                             visible.value = true
