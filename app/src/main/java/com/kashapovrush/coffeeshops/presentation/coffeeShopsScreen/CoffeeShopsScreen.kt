@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.coffeeshops.R
-import com.kashapovrush.coffeeshops.data.model.LocationDto
 import com.kashapovrush.coffeeshops.domain.entity.Location
 import com.kashapovrush.coffeeshops.navigation.NavigationState
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
@@ -51,7 +50,7 @@ fun CoffeeShopsScreen(
 ) {
 
 
-    val viewModel: LocationViewModel = viewModel(factory = viewModelFactory)
+    val viewModel: CoffeeShopsViewModel = viewModel(factory = viewModelFactory)
     viewModel.getLocations("Bearer $token")
     val screenState = viewModel.stateListLocation.observeAsState(initial = LocationsState.Initial)
     val currentState = screenState.value
