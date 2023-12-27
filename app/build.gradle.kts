@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.kashapovrush.cofeeshopstest"
+    namespace = "com.kashapovrush.coffeeshops"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.kashapovrush.cofeeshopstest"
+        applicationId = "com.kashapovrush.coffeeshops"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

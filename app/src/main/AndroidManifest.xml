@@ -17,12 +17,6 @@
         android:theme="@style/Theme.CofeeShopsTest"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.mapKitScreen.MapKitActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MapView">
-
-        </activity>
-        <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
