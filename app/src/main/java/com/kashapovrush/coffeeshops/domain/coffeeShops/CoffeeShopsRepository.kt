@@ -4,6 +4,7 @@ import com.kashapovrush.coffeeshops.domain.entity.Location
 import com.kashapovrush.coffeeshops.domain.entity.Menu
 import com.kashapovrush.coffeeshops.domain.entity.Payment
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface CoffeeShopsRepository {
 
@@ -13,5 +14,5 @@ interface CoffeeShopsRepository {
 
     suspend fun addPaymentItem(payment: Payment)
 
-    fun getListPayments(): Flow<List<Payment>>
+    fun getListPayments(): StateFlow<List<Payment>>
 }

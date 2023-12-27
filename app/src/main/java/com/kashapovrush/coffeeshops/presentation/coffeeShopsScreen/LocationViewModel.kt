@@ -5,12 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.data.model.MenuDto
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.domain.coffeeShops.AddPaymentItemUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetListUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetLocationsUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetMenuUseCase
-import com.kashapovrush.coffeeshops.domain.entity.Payment
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
