@@ -1,14 +1,14 @@
 package com.kashapovrush.coffeeshops.domain.auth
 
-import com.kashapovrush.coffeeshops.data.model.Token
-import com.kashapovrush.coffeeshops.data.model.User
-import retrofit2.Call
+import com.kashapovrush.coffeeshops.domain.entity.Token
+import com.kashapovrush.coffeeshops.domain.entity.User
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RegisterUserUseCase @Inject constructor(private val repository: AuthRepository) {
 
 
-    suspend operator fun invoke(user: User): Call<Token> {
+    operator fun invoke(user: User): Flow<Token> {
         return repository.registerUser(user)
     }
 }

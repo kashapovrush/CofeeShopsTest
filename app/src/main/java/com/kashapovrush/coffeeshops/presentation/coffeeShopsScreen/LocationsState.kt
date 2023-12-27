@@ -1,6 +1,6 @@
 package com.kashapovrush.coffeeshops.presentation.coffeeShopsScreen
 
-import com.kashapovrush.coffeeshops.data.model.Location
+import com.kashapovrush.coffeeshops.domain.entity.Location
 
 sealed class LocationsState {
 

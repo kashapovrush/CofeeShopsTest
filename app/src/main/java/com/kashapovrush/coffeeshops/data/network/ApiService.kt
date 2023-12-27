@@ -1,9 +1,10 @@
 package com.kashapovrush.coffeeshops.data.network
 
-import com.kashapovrush.coffeeshops.data.model.Location
-import com.kashapovrush.coffeeshops.data.model.Menu
-import com.kashapovrush.coffeeshops.data.model.Token
-import com.kashapovrush.coffeeshops.data.model.User
+import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.data.model.MenuDto
+import com.kashapovrush.coffeeshops.data.model.TokenDto
+import com.kashapovrush.coffeeshops.data.model.UserDto
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,22 +17,22 @@ interface ApiService {
 
     @Headers("Content-type: application/json", "accept: application/json")
     @POST("auth/register")
-    fun registerUser(@Body user: User):Call<Token>
+    suspend fun registerUser(@Body user: UserDto):TokenDto
 
     @Headers("Content-type: application/json", "accept: application/json")
     @POST("auth/login")
-    fun loginUser(@Body user: User): Call<Token>
+    suspend fun loginUser(@Body userDto: UserDto): TokenDto
 
     @Headers("accept: application/json")
     @GET("locations")
-    fun getLocations(@Header("Authorization") token: String): Call<List<Location>>
+    suspend fun getLocations(@Header("Authorization") token: String): List<LocationDto>
 
     @Headers("accept: application/json")
     @GET("location/{shop}/menu")
-    fun getMenu(
+    suspend fun getMenu(
         @Path("shop") shop: Int,
         @Header("Authorization") token: String
-    ): Call<List<Menu>>
+    ): List<MenuDto>
 
 
 

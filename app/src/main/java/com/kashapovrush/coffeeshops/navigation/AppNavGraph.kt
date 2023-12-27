@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.gson.Gson
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 
 @Composable
 fun AppNavGraph(

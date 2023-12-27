@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 
 class NavigationState(
     val navHostController: NavHostController

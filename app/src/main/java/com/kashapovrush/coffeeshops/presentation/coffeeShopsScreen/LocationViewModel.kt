@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.kashapovrush.coffeeshops.data.model.Location
-import com.kashapovrush.coffeeshops.data.model.Menu
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.data.model.LocationDto
+import com.kashapovrush.coffeeshops.data.model.MenuDto
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.domain.coffeeShops.AddPaymentItemUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetListUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetLocationsUseCase
 import com.kashapovrush.coffeeshops.domain.coffeeShops.GetMenuUseCase
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,38 +37,17 @@ class LocationViewModel @Inject constructor(
 
     fun getLocations(token: String) {
         viewModelScope.launch {
-            getLocationsUseCase(token).enqueue(object : Callback<List<Location>> {
-                override fun onResponse(
-                    call: Call<List<Location>>,
-                    response: Response<List<Location>>
-                ) {
-
-                    _stateListLocations.value = LocationsState.CoffeeShops(
-                        response.body() ?: listOf()
-                    )
-                }
-
-                override fun onFailure(call: Call<List<Location>>, t: Throwable) {
-
-                }
-
-            })
+            getLocationsUseCase(token).collect {
+                _stateListLocations.value = LocationsState.CoffeeShops(it)
+            }
         }
     }
 
     fun getMenu(shop: Int, token: String) {
         viewModelScope.launch {
-            getMenuUseCase(shop, token).enqueue(object : Callback<List<Menu>> {
-                override fun onResponse(call: Call<List<Menu>>, response: Response<List<Menu>>) {
-                    _stateMenu.value = MenuState.MenuItem(
-                        response.body() ?: listOf()
-                    )
-                }
-
-                override fun onFailure(call: Call<List<Menu>>, t: Throwable) {
-                }
-
-            })
+            getMenuUseCase(shop, token).collect {
+                _stateMenu.value = MenuState.MenuItem(it)
+            }
         }
     }
 

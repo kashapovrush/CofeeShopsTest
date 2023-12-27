@@ -1,12 +1,12 @@
 package com.kashapovrush.coffeeshops.domain.coffeeShops
 
-import com.kashapovrush.coffeeshops.data.model.Menu
-import retrofit2.Call
+import com.kashapovrush.coffeeshops.domain.entity.Menu
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetMenuUseCase @Inject constructor(private val repository: CoffeeShopsRepository) {
 
-    suspend operator fun  invoke(shop: Int, token: String): Call<List<Menu>> {
+    suspend operator fun  invoke(shop: Int, token: String): Flow<List<Menu>> {
         return repository.getMenu(shop, token)
     }
 }

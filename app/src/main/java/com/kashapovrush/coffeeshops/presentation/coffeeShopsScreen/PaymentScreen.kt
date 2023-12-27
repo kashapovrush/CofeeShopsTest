@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kashapovrush.coffeeshops.R
-import com.kashapovrush.coffeeshops.domain.Payment
+import com.kashapovrush.coffeeshops.domain.entity.Payment
 import com.kashapovrush.coffeeshops.presentation.ViewModelFactory
 import com.kashapovrush.coffeeshops.presentation.customView.MinusEnabled
 import com.kashapovrush.coffeeshops.presentation.customView.PlusEnabled

@@ -1,12 +1,12 @@
 package com.kashapovrush.coffeeshops.domain.auth
 
-import com.kashapovrush.coffeeshops.data.model.Token
-import com.kashapovrush.coffeeshops.data.model.User
-import retrofit2.Call
+import com.kashapovrush.coffeeshops.domain.entity.Token
+import com.kashapovrush.coffeeshops.domain.entity.User
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun loginUser(user: User): Call<Token>
+    fun loginUser(user: User): Flow<Token>
 
-    suspend fun registerUser(user: User): Call<Token>
+    fun registerUser(user: User): Flow<Token>
 }

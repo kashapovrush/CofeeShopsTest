@@ -1,6 +1,6 @@
 package com.kashapovrush.coffeeshops.presentation.coffeeShopsScreen
 
-import com.kashapovrush.coffeeshops.data.model.Menu
+import com.kashapovrush.coffeeshops.domain.entity.Menu
 
 sealed class MenuState {
 
